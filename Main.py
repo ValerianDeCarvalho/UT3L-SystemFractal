@@ -1,13 +1,13 @@
-import LSystem
-import Turtle
-import Tkinter
+from LSystem import LSystem
+from Turtle import Turtle
+from Tkinter import Tkinter,TkinterGet
 
 def main():
     Tkinter.window()
-    axiome = Tkinter.axiome
-    dictionnaire = Tkinter.dictionnaire
-    iteration = Tkinter.iteration
-    lsystem = LSystem.lSystemCreate(axiome, dictionnaire, iteration)
+    axiome = TkinterGet.axiome
+    tuple = TkinterGet.rules
+    iteration = TkinterGet.iteration
+    lsystem = LSystem.lSystemCreate(axiome, tuple, iteration)
     myturtle = Turtle.initialisationTurtle()
     Turtle.lSystemTurtle(myturtle, lsystem)
 
