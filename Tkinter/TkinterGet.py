@@ -1,10 +1,10 @@
 import tkinter
 
 valA=0
-valB=1
-valC=2
-valD=3
-valE=4
+valB=0
+valC=0
+valD=0
+valE=0
 
 # Récupérer la valeur de A
 def ValueA(x):
@@ -40,33 +40,53 @@ def testAxiome(axiome):
     # L'axiome est valide s'il ne contient que des 'A', 'B', 'C', 'D' ou 'E'
     return True
 
+def testRule(rule):
+    # Parcourir chaque caractère de la règle
+    for char in rule:
+        # Vérifier si le caractère est parmi 'A', 'B', 'C', 'D' ou 'E'
+        if char not in 'ABCDE':
+            return False
+    # La règle est valide si elle ne contient que des 'A', 'B', 'C', 'D' ou 'E'
+    return True
+
 def recupererValeur(iter,axio,tup,window):
     # Récupérer les valeurs des champs
     global iteration
     global axiome
-    global rules
+    global rule
+
     # Récupérer et convertir l'itération en entier avec stringToInt
-    iteration = stringToInt(iter.get())
+    iteration = stringToIt(iter.get())
+
     # Récupérer l'axiome
     axiome = axio.get()
+    
     # Récupérer les règles et les convertir en tuple avec stringToTuple
-    rules = stringToTuple(tup.get())
+    rule = stringToRule(tup.get())
+
     # Boucle de validation de l'axiome
     while not testAxiome(axiome):
         # Afficher un message d'erreur si l'axiome n'est pas valide
         tkinter.messagebox.showerror("Erreur", "L'axiome ne peut contenir que les éléments 'A', 'B', 'C', 'D' ou 'E'.")
         # Réinitialiser l'entrée de l'axiome
-        axio.delete(0, 'end')
+        axiome.delete(0, 'end')
         axiome.insert(0,"A")
         # Attendre que l'utilisateur corrige l'axiome en fermant la fenêtre modale
         window.wait_window()
+
     # Fermer la fenêtre
     window.destroy()
 
 # Convertir une chaîne en entier
-def stringToInt(string):
+def stringToIt(string):
     return int(string)
 
 # Convertir une chaîne en tuple
-def stringToTuple(string):
-    return tuple(string.split(','))
+def stringToRule(string):
+    # Supprimer les espaces
+    string = string.replace(" ", "")
+    # Diviser la chaîne en une liste de paires
+    pairs = string.split(";")
+    # Diviser chaque paire en deux éléments et créer un tuple
+    result = [(pair.split(",")[0], pair.split(",")[1]) for pair in pairs]
+    return result

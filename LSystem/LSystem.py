@@ -1,7 +1,16 @@
-def lSystemCreate(ax, ru, it):
-    # Répète l'opération 'it' fois
-    for i in range(it):
-        # Remplace les caractères spécifiés dans 'ru' dans la chaîne 'ax'
-        ax = ax.replace(*ru)
-    # Retourne la chaîne 'ax' modifiée
-    return ax
+def lSystemCreate(axiome, règle, itération):
+    
+    # Répète l'opération pour chaque itération
+    for _ in range(itération):
+        temp = ''
+        for j in range(len(axiome)):
+            for k in range(len(règle)):
+                if axiome[j] == règle[k][0]:
+                    temp += règle[k][1]
+                    break
+            else:
+                temp += axiome[j]
+        axiome = temp
+
+    # Retourne la chaîne axiome modifiée
+    return axiome

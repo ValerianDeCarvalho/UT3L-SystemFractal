@@ -19,8 +19,8 @@ def lSystemTurtle(turtle, lSystem):
         'A': TkinterGet.valA,
         'B': TkinterGet.valB,
         'C': TkinterGet.valC,
-        'D': TkinterGet.valD, 
-        'E': TkinterGet.valE  
+        'D': TkinterGet.valD,
+        'E': TkinterGet.valE 
     }
     
     # Parcourir chaque symbole de la chaîne L-System et effectuer l'action correspondante
