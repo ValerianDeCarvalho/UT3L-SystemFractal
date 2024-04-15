@@ -5,6 +5,8 @@ valB=0
 valC=0
 valD=0
 valE=0
+rotate=25
+length=10
 
 # Récupérer la valeur de A
 def ValueA(x):
@@ -49,18 +51,26 @@ def testRule(rule):
     # La règle est valide si elle ne contient que des 'A', 'B', 'C', 'D' ou 'E'
     return True
 
-def recupererValeur(iter,axio,tup,window):
+def recupererValeur(iter,axio,tup,rot,len,window):
     # Récupérer les valeurs des champs
     global iteration
     global axiome
     global rule
+    global length
+    global rotate
+
+    # Récupérer et convertir la longueur en entier avec stringToInt
+    length = stringToInt(len.get())
+
+    # Récupérer et convertir l'angle de rotation en entier avec stringToInt
+    rotate = stringToInt(rot.get())
 
     # Récupérer et convertir l'itération en entier avec stringToInt
-    iteration = stringToIt(iter.get())
+    iteration = stringToInt(iter.get())
 
     # Récupérer l'axiome
     axiome = axio.get()
-    
+
     # Récupérer les règles et les convertir en tuple avec stringToTuple
     rule = stringToRule(tup.get())
 
@@ -78,7 +88,7 @@ def recupererValeur(iter,axio,tup,window):
     window.destroy()
 
 # Convertir une chaîne en entier
-def stringToIt(string):
+def stringToInt(string):
     return int(string)
 
 # Convertir une chaîne en tuple

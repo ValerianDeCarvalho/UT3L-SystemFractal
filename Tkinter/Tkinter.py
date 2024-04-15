@@ -1,5 +1,5 @@
 import tkinter as tk
-from Tkinter import TkinterGet
+from Tkinter import TkinterGet,TkinterPredefined
 
 def window():
     # Création de la fenêtre principale
@@ -12,29 +12,67 @@ def window():
     separator = tk.Label(window, text="")
     separator.pack()
 
+    # Affichage du gros titre
+    label_title = tk.Label(window, text="L-System", font=("Arial", 24, "bold"), relief="raised", bd=5)
+    label_title.pack()
+
+    # Séparateur
+    separator = tk.Label(window, text="")
+    separator.pack()
+
+    # Création d'une frame pour regrouper les labels d'itération et de l'axiome
+    frame_labelia = tk.Frame(window)
+    frame_labelia.pack()
+    # Création d'une frame pour regrouper les entrées d'itération et de l'axiome
+    frame_inputia = tk.Frame(window)
+    frame_inputia.pack()
+
     # Affichage du label pour l'itération
-    label_iteration = tk.Label(window, text="Itérations:")
-    label_iteration.pack()
+    label_iteration = tk.Label(frame_labelia,padx=35, text="Itérations:")
+    label_iteration.pack(side=tk.LEFT)
     # Entrée pour l'itération
-    iteration = tk.Entry(window, width=75)
+    iteration = tk.Entry(frame_inputia, width=20)
     iteration.insert(0, "4")  # Mettre une valeur par défaut
-    iteration.pack()
+    iteration.pack(side=tk.LEFT)
 
     # Affichage du label pour l'axiome
-    label_axiom = tk.Label(window, text="Axiome:")
-    label_axiom.pack()
+    label_axiom = tk.Label(frame_labelia,padx=30, text="Axiome:")
+    label_axiom.pack(side=tk.LEFT)
     # Entrée pour l'axiome
-    axiom = tk.Entry(window, width=75)
+    axiom = tk.Entry(frame_inputia, width=20)
     axiom.insert(0, "A")  # Mettre une valeur par défaut
-    axiom.pack()
+    axiom.pack(side=tk.LEFT)
 
     # Affichage du label pour les règles
     label_rules = tk.Label(window, text="Règles:")
     label_rules.pack()
     # Entrée pour les règles
-    rules = tk.Entry(window, width=75)
+    rules = tk.Entry(window, width=40)
     rules.insert(0, 'A,B')  # Mettre une valeur par défaut
     rules.pack()
+
+    # Création d'une frame pour regrouper les labels de rotation et de longueur
+    frame_labelrl = tk.Frame(window)
+    frame_labelrl.pack()
+    # Création d'une frame pour regrouper les entrées de rotation et de longueur
+    frame_inputrl = tk.Frame(window)
+    frame_inputrl.pack()
+
+    # Affichage du label pour la rotation
+    label_rotation = tk.Label(frame_labelrl, padx=35, text="Rotation:")
+    label_rotation.pack(side=tk.LEFT)
+    # Entrée pour la rotation
+    rotation = tk.Entry(frame_inputrl, width=20)
+    rotation.insert(0, "25")
+    rotation.pack(side=tk.LEFT)
+
+    # Affichage du label pour la longueur
+    label_length = tk.Label(frame_labelrl, padx=30, text="Longueur:")
+    label_length.pack(side=tk.LEFT)
+    # Entrée pour la longueur
+    length = tk.Entry(frame_inputrl, width=20)
+    length.insert(0, "10")
+    length.pack(side=tk.LEFT)
 
     # Séparateur
     separator = tk.Label(window, text="")
@@ -91,16 +129,42 @@ def window():
     separator = tk.Label(window, text="")
     separator.pack()
 
-    # Bouton pour envoyer les valeurs et les récupérer dans TkinterGet
-    button_predefined1 = tk.Button(window, text="Prédéfini1", command=lambda: (predefined1(axiom, rules, iteration), updatelabel(labela, "A:" + renommerValeur(TkinterGet.valA)), updatelabel(labelb,"B" + renommerValeur(TkinterGet.valB)), updatelabel(labelc, "C:" + renommerValeur(TkinterGet.valC)), updatelabel(labeld, "D" + renommerValeur(TkinterGet.valD)), updatelabel(labele, "E:" + renommerValeur(TkinterGet.valE)) ))
-    button_predefined1.pack()
+    # Création d'une frame pour regrouper les boutons prédéfinis
+    frame_predefined = tk.Frame(window)
+    frame_predefined.pack(side=tk.TOP, pady=10)
+
+    # Options pour le menu déroulant
+    predefined_options = ["None","Arbre", "Arbre2", "Flocon"]
+
+    # Variable pour stocker l'option sélectionnée
+    selected_option = tk.StringVar(window)
+    selected_option.set(predefined_options[0])  # Définir la première option comme sélectionnée
+
+    # Fonction appelée lorsque l'option sélectionnée change
+    def on_option_selected(event):
+        option = selected_option.get()
+        if option == "Arbre":
+            TkinterPredefined.arbre(axiom, rules, iteration, length, rotation)
+        elif option == "Arbre2":
+            TkinterPredefined.arbre2(axiom, rules, iteration, length, rotation)
+        elif option == "Flocon":
+            TkinterPredefined.flocon(axiom, rules, iteration, length, rotation)
+        updatelabel(labela, "A:" + renommerValeur(TkinterGet.valA))
+        updatelabel(labelb, "B:" + renommerValeur(TkinterGet.valB))
+        updatelabel(labelc, "C:" + renommerValeur(TkinterGet.valC))
+        updatelabel(labeld, "D:" + renommerValeur(TkinterGet.valD))
+        updatelabel(labele, "E:" + renommerValeur(TkinterGet.valE))
+
+    # Création du menu déroulant
+    dropdown_menu = tk.OptionMenu(frame_predefined, selected_option, *predefined_options, command=on_option_selected)
+    dropdown_menu.pack(side=tk.LEFT, padx=5)
 
     # Séparateur
     separator = tk.Label(window, text="")
     separator.pack()
 
     # Bouton pour envoyer les valeurs et les récupérer dans TkinterGet
-    button_send = tk.Button(window, text="Envoyer", command=lambda: TkinterGet.recupererValeur(iteration, axiom, rules, window))
+    button_send = tk.Button(window, text="Envoyer", command=lambda: TkinterGet.recupererValeur(iteration, axiom, rules,rotation,length,window))
     button_send.pack()
 
     # Lancer la fenêtre
@@ -109,19 +173,6 @@ def window():
 # Mettre à jour le texte d'un label
 def updatelabel(label, text):
     label.config(text=text)
-
-def predefined1(axiom, rules, iteration):
-    axiom.delete(0, 'end')
-    axiom.insert(0, "A")
-    rules.delete(0, 'end')
-    rules.insert(0, 'A,AACDCABABAEBDBACACAE')
-    iteration.delete(0, 'end')
-    iteration.insert(0, "4")
-    TkinterGet.valA = 0
-    TkinterGet.valB = 1
-    TkinterGet.valC = 2
-    TkinterGet.valD = 3
-    TkinterGet.valE = 4
 
 def renommerValeur(ABCDE):
     if ABCDE == 0:

@@ -3,7 +3,8 @@ from Tkinter import TkinterGet
 
 def lSystemTurtle(turtle, lSystem):
     stack = []  # Pile pour stocker les positions
-    x = 10  # Longueur du déplacement
+    x = TkinterGet.length  # Longueur du déplacement
+    r = TkinterGet.rotate  # Angle de rotation
 
     # Dictionnaire des couleurs associées aux symboles
     colors = {
@@ -29,9 +30,9 @@ def lSystemTurtle(turtle, lSystem):
         if vals[i] == 0:
             turtle.forward(x)  # Avancer de x unités
         elif vals[i] == 1:
-            turtle.left(25)  # Tourner à gauche de 25
+            turtle.left(r)  # Tourner à gauche de 25
         elif vals[i] == 2:
-            turtle.right(25)  # Tourner à droite de 25
+            turtle.right(r)  # Tourner à droite de 25
         elif vals[i] == 3:
             stack.append(turtle.position())  # Empiler la position actuelle
         elif vals[i] == 4:
