@@ -46,7 +46,7 @@ def testRule(rule):
     # Parcourir chaque caractère de la règle
     for char in rule:
         # Vérifier si le caractère est parmi 'A', 'B', 'C', 'D' ou 'E'
-        if char not in 'ABCDE':
+        if char not in 'ABCDE,;':
             return False
     # La règle est valide si elle ne contient que des 'A', 'B', 'C', 'D' ou 'E'
     return True
@@ -79,9 +79,19 @@ def recupererValeur(iter,axio,tup,rot,len,window):
         # Afficher un message d'erreur si l'axiome n'est pas valide
         tkinter.messagebox.showerror("Erreur", "L'axiome ne peut contenir que les éléments 'A', 'B', 'C', 'D' ou 'E'.")
         # Réinitialiser l'entrée de l'axiome
-        axiome.delete(0, 'end')
-        axiome.insert(0,"A")
+        axio.delete(0, 'end')
+        axio.insert(0,"A")
         # Attendre que l'utilisateur corrige l'axiome en fermant la fenêtre modale
+        window.wait_window()
+    
+    # Boucle de validation de la règle
+    while not testRule(tup.get()):
+        # Afficher un message d'erreur si la règle n'est pas valide
+        tkinter.messagebox.showerror("Erreur", "Les règles ne peuvent contenir que les éléments 'A', 'B', 'C', 'D' ou 'E'.")
+        # Réinitialiser l'entrée de la règle
+        tup.delete(0, 'end')
+        tup.insert(0,"A,B")
+        # Attendre que l'utilisateur corrige la règle en fermant la fenêtre modale
         window.wait_window()
 
     # Fermer la fenêtre

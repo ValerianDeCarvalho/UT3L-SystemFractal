@@ -1,11 +1,11 @@
 import tkinter as tk
-from Tkinter import TkinterGet,TkinterPredefined
+from Tkinter import TkinterGet,TkinterPredefined, TkinterTutorial
 
 def window():
     # Création de la fenêtre principale
     window = tk.Tk()
     window.title("lSystem")
-    window.geometry("400x300")  
+    window.attributes('-fullscreen', True)
     window.eval('tk::PlaceWindow . center')  # Centrer la fenêtre sur l'écran
 
     # Séparateur
@@ -15,6 +15,14 @@ def window():
     # Affichage du gros titre
     label_title = tk.Label(window, text="L-System", font=("Arial", 24, "bold"), relief="raised", bd=5)
     label_title.pack()
+
+    # Séparateur
+    separator = tk.Label(window, text="")
+    separator.pack()
+
+    # Création d'un bouton pour ouvrir une nouvelle fenêtre
+    button_tutorial = tk.Button(window, text="Tutoriel", command=TkinterTutorial.open_tutorial)
+    button_tutorial.pack()
 
     # Séparateur
     separator = tk.Label(window, text="")
@@ -134,19 +142,19 @@ def window():
     frame_predefined.pack(side=tk.TOP, pady=10)
 
     # Options pour le menu déroulant
-    predefined_options = ["None","Arbre", "Arbre2", "Flocon"]
+    predefined_options = ["None","Arbre", "Flocon"]
 
     # Variable pour stocker l'option sélectionnée
     selected_option = tk.StringVar(window)
-    selected_option.set(predefined_options[0])  # Définir la première option comme sélectionnée
+    selected_option.set(predefined_options[0])
 
     # Fonction appelée lorsque l'option sélectionnée change
     def on_option_selected(event):
         option = selected_option.get()
-        if option == "Arbre":
+        if option == "None":
+            TkinterPredefined.none(axiom, rules, iteration, length, rotation)
+        elif option == "Arbre":
             TkinterPredefined.arbre(axiom, rules, iteration, length, rotation)
-        elif option == "Arbre2":
-            TkinterPredefined.arbre2(axiom, rules, iteration, length, rotation)
         elif option == "Flocon":
             TkinterPredefined.flocon(axiom, rules, iteration, length, rotation)
         updatelabel(labela, "A:" + renommerValeur(TkinterGet.valA))
@@ -166,6 +174,14 @@ def window():
     # Bouton pour envoyer les valeurs et les récupérer dans TkinterGet
     button_send = tk.Button(window, text="Envoyer", command=lambda: TkinterGet.recupererValeur(iteration, axiom, rules,rotation,length,window))
     button_send.pack()
+
+    # Séparateur
+    separator = tk.Label(window, text="")
+    separator.pack()
+
+    # Création d'un bouton pour fermer la fenêtre
+    button_close = tk.Button(window, text="Fermer", command=window.destroy)
+    button_close.pack()
 
     # Lancer la fenêtre
     window.mainloop()
