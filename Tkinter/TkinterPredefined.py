@@ -70,3 +70,26 @@ def flocon(axiom, rules, iteration, length, rotation):
     TkinterGet.valC = 2
     TkinterGet.valD = 3
     TkinterGet.valE = 4
+
+def fleur(axiom, rules, iteration, length, rotation):
+    # Efface le champ d'entrée de l'axiome et insère la valeur par défaut.
+    axiom.delete(0, 'end')
+    axiom.insert(0, "DDDDDDDDDDB")
+    # Efface le champ d'entrée des règles et insère la valeur par défaut.
+    rules.delete(0, 'end')
+    rules.insert(0, 'A,DDDCDCCDCDDDCCD;B,DACDAEEDAB')
+    # Efface le champ d'entrée du nombre d'itérations et insère la valeur par défaut.
+    iteration.delete(0, 'end')
+    iteration.insert(0, "10")
+    # Efface le champ d'entrée de la longueur et insère la valeur par défaut.
+    length.delete(0, 'end')
+    length.insert(0, "10")
+    # Efface le champ d'entrée de la rotation et insère la valeur par défaut.
+    rotation.delete(0, 'end')
+    rotation.insert(0, "45")
+    # Définit des variables pour chaque lettre de l'axiome.
+    TkinterGet.valA = 0
+    TkinterGet.valB = 1
+    TkinterGet.valC = 2
+    TkinterGet.valD = 0
+    TkinterGet.valE = 1

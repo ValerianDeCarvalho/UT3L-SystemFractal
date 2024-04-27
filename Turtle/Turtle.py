@@ -9,9 +9,9 @@ def lSystemTurtle(turtle, lSystem):
     # Dictionnaire des couleurs associées aux symboles
     colors = {
         'A': "blue",
-        'B': "red",
+        'B': "yellow",
         'C': "purple",
-        'D': "yellow",
+        'D': "red",
         'E': "green"
     }
 
@@ -36,8 +36,13 @@ def lSystemTurtle(turtle, lSystem):
         elif vals[i] == 3:
             stack.append(turtle.position())  # Empiler la position actuelle
         elif vals[i] == 4:
-            pos = stack.pop()  # Dépiler la dernière position
-            turtle.goto(pos)  # Se déplacer vers la position dépliée
+            if stack:
+                pos = stack.pop()  # Dépiler la dernière position
+                turtle.penup()
+                turtle.goto(pos)  # Se déplacer vers la position dépliée
+                turtle.pendown()
+            else:
+                print("Stack is empty")
 
 # Initialisation de la tortue et de la fenêtre graphique
 def initialisationTurtle():

@@ -1,4 +1,5 @@
 import tkinter as tk
+from PIL import ImageTk, Image
 
 # Variable pour garder une trace de l'état de la fenêtre de tutoriel
 tutorial_open = False
@@ -15,6 +16,7 @@ def open_tutorial():
         # Créer une nouvelle fenêtre
         tutorial_window = tk.Tk()
         tutorial_window.title("Tutorial")
+        tutorial_window.attributes('-fullscreen', True)
         
         # Séparateur
         separator = tk.Label(tutorial_window, text="")
