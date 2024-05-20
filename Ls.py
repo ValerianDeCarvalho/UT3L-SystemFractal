@@ -6,15 +6,11 @@ def lSystemCreate(axiome, rule, iteration):
         temp = ''
         # Parcourt chaque symbole de l'axiome actuel.
         for j in range(len(axiome)):
-            # Parcourt chaque règle de remplacement.
-            for k in range(len(rule)):
-                # Si le symbole de l'axiome correspond au symbole de la règle...
-                if axiome[j] == rule[k][0]:
-                    # ... alors le symbole est remplacé par le contenu de la règle.
-                    temp += rule[k][1]
-                    break
-            # Si aucun remplacement n'est trouvé pour le symbole, il est simplement ajouté à la chaîne temporaire.
-            else:
+            # On a un dictionnaire Parcourt chaque règle de remplacement.
+            v=rule.get(axiome[j])
+            if v!=None:
+                temp += v
+            else: # Si aucun remplacement n'est trouvé pour le symbole, il est simplement ajouté à la chaîne temporaire.
                 temp += axiome[j]
         # La nouvelle axiome est mise à jour avec la chaîne temporaire pour la prochaine itération.
         axiome = temp
